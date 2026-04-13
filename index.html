@@ -23,9 +23,164 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Custom Coding Background & Glassmorphism Enhancements */
+    #coding-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body {
+      background: #111;
+    }
+
+    /* Make main content translucent for the glassmorphism effect over the background */
+    .sidebar,
+    article,
+    .navbar {
+      background: rgba(30, 30, 35, 0.65) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      /* Safari support */
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+      z-index: 10;
+    }
+
+    /* Alternative Text Slider Animation */
+    .role-slider {
+      background: var(--onyx);
+      color: var(--white-1);
+      font-size: var(--fs-8);
+      font-weight: var(--fw-300);
+      padding: 3px 12px;
+      border-radius: 8px;
+      display: inline-block;
+      overflow: hidden;
+      height: 24px;
+      vertical-align: middle;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .role-slider .roles {
+      display: flex;
+      flex-direction: column;
+      animation: role-slide 6s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+
+    }
+
+    .role-slider span {
+      display: block;
+      line-height: 18px;
+      text-align: center;
+    }
+
+    @keyframes role-slide {
+
+      0%,
+      25% {
+        transform: translateY(0);
+      }
+
+      33%,
+      58% {
+        transform: translateY(-18px);
+      }
+
+      66%,
+      91% {
+        transform: translateY(-36px);
+      }
+
+      100% {
+        transform: translateY(-54px);
+      }
+    }
+
+    /* Give the overall main layout relative position so it layers above canvas properly */
+    main {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Subtle hover effect on project cards */
+    .project-item>a {
+      transition: transform 0.3s ease;
+    }
+
+    .project-item>a:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Certificate Marquee and Circle styling */
+    .marquee-container {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .marquee-content {
+      display: flex;
+      flex-shrink: 0;
+      gap: 30px;
+      padding: 10px;
+      animation: scroll 15s linear infinite;
+    }
+
+    .marquee-container:hover .marquee-content {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(-100% - 30px));
+      }
+    }
+
+    .fixed-cert {
+      height: 140px !important;
+      width: 200px !important;
+      object-fit: contain !important;
+      border-radius: 8px !important;
+      border: 2px solid var(--orange-yellow-crayola) !important;
+      transition: transform 0.3s ease, filter 0.3s ease !important;
+      filter: grayscale(0) !important;
+      background: var(--eerie-black-1);
+      cursor: pointer;
+    }
+
+    .fixed-cert:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+  </style>
 </head>
 
 <body>
+
+  <!-- Image Modal -->
+  <div class="image-modal-container" id="imageModal"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+    <span id="closeImageModal"
+      style="position: absolute; top: 20px; right: 30px; color: white; font-size: 50px; cursor: pointer; z-index: 1001;">&times;</span>
+    <img id="modalImage" src=""
+      style="max-width: 90%; max-height: 90%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+  </div>
+
+  <!-- Coding Background Canvas -->
+  <canvas id="coding-bg"></canvas>
 
   <!--
     - #MAIN
@@ -42,13 +197,21 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="./assets/images/leo.JPG" alt="LEO JOEL ROYS" width="80" style="border-radius: 22px;" >
+          <img src="./assets/images/joel1.png" alt="LEO JOEL ROYS" width="80" style="border-radius: 22px;">
         </figure>
 
         <div class="info-content">
-          <h1 class="name" title="Richard hanrick">LEO JOEL ROYS</h1>
+          <h1 class="name" title="LEO JOEL ROYS">LEO JOEL ROYS</h1>
 
-          <p class="title">Web developer</p>
+          <div class="role-slider">
+            <div class="roles">
+              <span>Web Developer</span>
+              <span>Web Developer</span>
+              <span>Web Developer</span>
+              <span>Web Developer</span>
+            </div>
+          </div>
+
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
@@ -128,7 +291,8 @@
         <ul class="social-list">
 
           <li class="social-item">
-            <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile" class="social-link">
+            <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile"
+              class="social-link">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
@@ -144,11 +308,6 @@
               <ion-icon name="logo-instagram"></ion-icon>
             </a>
           </li>
-          <li class="social-item">
-  <a href="https://sites.google.com/view/joelx-orbit" class="social-link" target="_blank">
-    <ion-icon name="globe-outline"></ion-icon>
-  </a>
-</li>
 
         </ul>
 
@@ -186,7 +345,7 @@
             <button class="navbar-link" data-nav-link>Portfolio</button>
           </li>
 
-          
+
 
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Contact</button>
@@ -215,7 +374,7 @@
             A dedicated and versatile software developer with experience in
             creating web and desktop applications. Proficient in Python,
             VB.NET, and SQL, with a strong background in building user
-           friendly interfaces and efficient back-end systems
+            friendly interfaces and efficient back-end systems
           </p>
 
           <p>
@@ -287,14 +446,14 @@
 
             </li>
 
-            
+
 
           </ul>
 
         </section>
 
 
-   
+
 
 
         <!--
@@ -350,45 +509,38 @@
 
           <h3 class="h3 clients-title">Certificate</h3>
 
-          <ul class="clients-list has-scrollbar">
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/isro.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/guvipython.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/guvichatgpt.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/3d.jpg" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/datascience.jpg" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/event.png" alt="client logo">
-              </a>
-            </li>
-
-          </ul>
+          <div class="marquee-container">
+            <!-- First copy for seamless looping -->
+            <ul class="clients-list marquee-content">
+              <li class="clients-item"><img src="./assets/images/isro.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/guvipython.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/guvichatgpt.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/3d.jpg" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/datascience.jpg" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/event.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+            </ul>
+            <!-- Second copy for seamless looping -->
+            <ul class="clients-list marquee-content" aria-hidden="true">
+              <li class="clients-item"><img src="./assets/images/isro.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/guvipython.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/guvichatgpt.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/3d.jpg" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/datascience.jpg" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+              <li class="clients-item"><img src="./assets/images/event.png" alt="client logo" class="fixed-cert"
+                  onclick="openCertModal(this.src)"></li>
+            </ul>
+          </div>
 
         </section>
 
@@ -407,6 +559,12 @@
         <header>
           <h2 class="h2 article-title">Resume</h2>
         </header>
+
+        <div style="display: flex; justify-content: flex-end; padding-right: 30px; margin-bottom: 20px;">
+          <a href="./LEOJOELROYS J.pdf" download="LEOJOELROYS J.pdf" style="display: inline-flex; align-items: center; gap: 8px; background: var(--orange-yellow-crayola, #ffb800); color: #222; padding: 12px 24px; border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)';" onmouseout="this.style.transform='translateY(0)';">
+            <ion-icon name="download-outline"></ion-icon> Download Resume
+          </a>
+        </div>
 
         <section class="timeline">
 
@@ -427,7 +585,9 @@
               <span>2016-2022</span>
 
               <p class="timeline-text">
-                I completed my schooling at Dalmia Higher Secondary School, located in Trichy and managed by the Dalmia Cement Company. I achieved a perfect score of 100 out of 100 in Computer Science in my Class 12 public examination.
+                I completed my schooling at Dalmia Higher Secondary School, located in Trichy and managed by the Dalmia
+                Cement Company. I achieved a perfect score of 100 out of 100 in Computer Science in my Class 12 public
+                examination.
               </p>
 
             </li>
@@ -444,7 +604,7 @@
 
             </li>
 
-            
+
 
           </ol>
 
@@ -466,10 +626,13 @@
 
               <h4 class="h4 timeline-item-title">School Admission Website</h4>
 
-              
+
 
               <p class="timeline-text">
-                I developed a web-based school admission system using Python (Streamlit) and SQLite3, featuring user-friendly interfaces for both applicants and administrators. The system efficiently manages student records, login details, and admin functionalities through an integrated SQLite3 database. Streamlit was utilized for rapid development and responsive design, ensuring a smooth and seamless admission process.
+                I developed a web-based school admission system using Python (Streamlit) and SQLite3, featuring
+                user-friendly interfaces for both applicants and administrators. The system efficiently manages student
+                records, login details, and admin functionalities through an integrated SQLite3 database. Streamlit was
+                utilized for rapid development and responsive design, ensuring a smooth and seamless admission process.
               </p>
 
             </li>
@@ -478,13 +641,32 @@
 
               <h4 class="h4 timeline-item-title">Multimedia File Manager</h4>
 
-              
+
 
               <p class="timeline-text">
-                I developed a Windows-based application using VB.NET that allows users to open and manage images, PDFs, MP3, and MP4 files. The application includes a built-in note-taking feature with a textbox for easy documentation and ensures compatibility with various multimedia formats for efficient file handling.
+                I developed a Windows-based application using VB.NET that allows users to open and manage images, PDFs,
+                MP3, and MP4 files. The application includes a built-in note-taking feature with a textbox for easy
+                documentation and ensures compatibility with various multimedia formats for efficient file handling.
               </p>
 
             </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Video Call Application</h4>
+
+
+
+              <p class="timeline-text">
+                I developed a real-time video calling web application using
+                Node.js, Google Firebase Firestore, and WebRTC that enables
+                users to connect instantly through secure peer-to-peer video
+                communication with seamless data synchronization.
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
 
             <li class="timeline-item">
 
@@ -493,7 +675,12 @@
 
 
               <p class="timeline-text">
-                I developed a Face Recognition Attendance System using Python, integrating OpenCV and face recognition libraries to automate student attendance. The system captures and recognizes student faces in real-time, marking attendance accurately and securely. It includes a database to store student details and attendance records, along with an intuitive user interface for administrators to manage data. The solution enhances efficiency, reduces manual errors, and ensures a contactless and streamlined attendance process.
+                I developed a Face Recognition Attendance System using Python, integrating OpenCV and face recognition
+                libraries to automate student attendance. The system captures and recognizes student faces in real-time,
+                marking attendance accurately and securely. It includes a database to store student details and
+                attendance records, along with an intuitive user interface for administrators to manage data. The
+                solution enhances efficiency, reduces manual errors, and ensures a contactless and streamlined
+                attendance process.
               </p>
 
             </li>
@@ -713,7 +900,7 @@
 
 
             <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="https://sjc-attendance.streamlit.app/">
+              <a href="https://facerecognition-jqrsdwcdwsxjnhbg9gapqs.streamlit.app/">
 
                 <figure class="project-img">
                   <div class="project-item-icon-box">
@@ -730,7 +917,7 @@
               </a>
             </li>
 
-            
+
           </ul>
 
         </section>
@@ -759,9 +946,7 @@
 
         <section class="mapbox" data-mapbox>
           <figure>
-            <iframe
-              src="./assets/images/location.png"
-              width="400" height="300" loading="lazy"></iframe>
+            <iframe src="./assets/images/location.png" width="400" height="300" loading="lazy"></iframe>
           </figure>
         </section>
 
@@ -810,6 +995,78 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+  <!-- Coding Animation Script -->
+  <script>
+    const canvas = document.getElementById('coding-bg');
+    const ctx = canvas.getContext('2d');
+
+    let width, height, columns;
+    const fontSize = 16;
+    let drops = [];
+
+    function initCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      columns = Math.floor(width / fontSize);
+      drops = [];
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100; // random start offset to make it look organic
+      }
+    }
+
+    initCanvas();
+
+    const characters = '0123456789<>{}[]/\\;*&%$#!?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    function draw() {
+      // Create a semi-transparent black fade effect to show trails
+      ctx.fillStyle = 'rgba(17, 17, 17, 0.15)';
+      ctx.fillRect(0, 0, width, height);
+
+      // Set text color and font
+      ctx.fillStyle = 'rgba(255, 207, 84, 0.35)'; // Subtle translucent yellow/orange
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = characters[Math.floor(Math.random() * characters.length)];
+
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        // Reset drop to top randomly after it crosses the screen
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 50);
+    window.addEventListener('resize', initCanvas);
+
+    /* Lightbox Modal JS */
+    function openCertModal(src) {
+      document.getElementById('modalImage').src = src;
+      document.getElementById('imageModal').style.display = 'flex';
+    }
+    document.getElementById('closeImageModal').addEventListener('click', function () {
+      document.getElementById('imageModal').style.display = 'none';
+    });
+    document.getElementById('imageModal').addEventListener('click', function (e) {
+      if (e.target === this) this.style.display = 'none';
+    });
+  </script>
+
+  
+/* hide the right click */
+
+<script>
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+    alert('Right-click is disabled on this page.');
+  });
+</script>
 </body>
 
 </html>
