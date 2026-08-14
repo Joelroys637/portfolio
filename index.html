@@ -303,6 +303,22 @@
       width: 100%;
     }
 
+    .close-menu {
+      display: none;
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .close-menu:hover {
+      color: var(--neon-blue);
+      transform: rotate(90deg);
+    }
+
     .hamburger {
       display: none;
       flex-direction: column;
@@ -335,6 +351,10 @@
       .hamburger {
         display: flex;
       }
+      
+      .close-menu {
+        display: block;
+      }
 
       .nav-links {
         position: fixed;
@@ -343,11 +363,11 @@
         height: 100vh;
         width: 280px;
         flex-direction: column;
-        gap: 0;
+        gap: 16px;
         background: rgba(0, 0, 0, 0.95);
         backdrop-filter: blur(30px);
         border-left: 1px solid rgba(0, 212, 255, 0.15);
-        padding: 100px 40px 40px;
+        padding: 100px 30px 40px;
         transition: right .4s ease;
         z-index: 999;
       }
@@ -356,10 +376,33 @@
         right: 0;
       }
 
+      .nav-links li {
+        width: 100%;
+      }
+
       .nav-links a {
+        display: block;
+        width: 100%;
+        text-align: center;
         font-size: .8rem;
-        padding: 16px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 14px 0;
+        border: 1px solid rgba(0, 212, 255, 0.25);
+        border-radius: 4px;
+        background: rgba(0, 212, 255, 0.05);
+        color: var(--neon-blue);
+        transition: all .3s ease;
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: rgba(0, 212, 255, 0.15);
+        border-color: var(--neon-blue);
+        box-shadow: var(--glow-blue);
+        transform: translateY(-2px);
       }
     }
 
@@ -922,86 +965,6 @@
       margin-top: 8px;
     }
 
-    /* ── SERVICES ── */
-    #services {
-      background: linear-gradient(180deg, transparent, rgba(0, 212, 255, 0.015), transparent);
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-    }
-
-    .service-card {
-      padding: 40px 28px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 4px;
-      backdrop-filter: blur(20px);
-      text-align: center;
-      transition: all .4s;
-      position: relative;
-      overflow: hidden;
-      cursor: default;
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-      transform: scaleX(0);
-      transition: transform .4s;
-    }
-
-    .service-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .service-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(0, 212, 255, 0.25);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 212, 255, 0.06);
-    }
-
-    .service-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 24px;
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(180, 79, 255, 0.1));
-      border: 1px solid rgba(0, 212, 255, 0.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      transition: all .4s;
-    }
-
-    .service-card:hover .service-icon {
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(180, 79, 255, 0.2));
-      border-color: var(--neon-blue);
-      box-shadow: var(--glow-blue);
-      transform: rotate(10deg) scale(1.1);
-    }
-
-    .service-title {
-      font-family: var(--font-display);
-      font-size: .85rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-    }
-
-    .service-desc {
-      font-size: .9rem;
-      color: rgba(255, 255, 255, 0.45);
-      line-height: 1.7;
-    }
 
     /* ── PROJECTS ── */
     #projects {
@@ -1750,9 +1713,10 @@
   <nav id="navbar">
     <a href="#hero" class="nav-logo">LEO JOEL ROYS</a>
     <ul class="nav-links" id="nav-links">
+      <div class="close-menu" id="close-menu">✕</div>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#services">Services</a></li>
+
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -1785,7 +1749,7 @@
         <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile"
           title="LinkedIn">in</a>
         <a href="https://x.com/LEOJOEL637" title="Twitter">𝕏</a>
-        <a href="https://www.instagram.com/leo_joel_roys_637/" title="Instagram">ig</a>
+        <a href="https://github.com/Joelroys637" title="GitHub">gh</a>
       </div>
     </div>
     <div class="scroll-indicator">
@@ -1894,34 +1858,6 @@
 
   <div class="section-divider"></div>
 
-  <!-- ══ SERVICES ══ -->
-  <section id="services">
-    <div class="section-inner">
-      <div class="reveal">
-        <div class="section-tag">What I Do</div>
-        <h2 class="section-title">Services</h2>
-      </div>
-      <div class="services-grid">
-        <div class="service-card glass reveal">
-          <div class="service-icon"><img src="../assets/images/icon-design.svg" alt="web design" width="32"></div>
-          <div class="service-title">Web Development</div>
-          <p class="service-desc">The most modern and high-quality website made at a professional level.</p>
-        </div>
-        <div class="service-card glass reveal">
-          <div class="service-icon"><img src="../assets/images/icon-dev.svg" alt="software dev" width="32"></div>
-          <div class="service-title">Software Development</div>
-          <p class="service-desc">High-quality development of software at the professional level.</p>
-        </div>
-        <div class="service-card glass reveal">
-          <div class="service-icon"><img src="../assets/images/icon-app.svg" alt="mobile app" width="32"></div>
-          <div class="service-title">Mobile Apps</div>
-          <p class="service-desc">Basic development of applications for Android.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
 
   <!-- ══ EXPERIENCE ══ -->
   <section id="experience">
@@ -1931,6 +1867,23 @@
         <h2 class="section-title">Work Experience</h2>
       </div>
       <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-card">
+            <div class="exp-title">Flutter Development Internship</div>
+            <div class="exp-company">HiMat Technologies</div>
+            <div class="exp-duration">May 1, 2026 – June 4, 2026</div>
+            <p class="exp-desc">During my internship at HiMat Technologies, I worked on the Trougle Travel Companion Mobile Application using Flutter, Firebase, Google Maps API, Razorpay, and real-time communication services. I contributed to UI development, authentication, trip management, maps, live location, chat, calling, payments, and subscriptions.</p>
+            <ul class="exp-list">
+              <li>Enhanced skills in Flutter, Firebase, API integration, UI/UX, testing, debugging, and application performance.</li>
+              <li>Improved problem-solving, teamwork, communication, and time-management skills through real-world mobile application development.</li>
+            </ul>
+            <div class="exp-tech">Tech Stack: Flutter | Firebase | Google Maps API | Razorpay</div>
+            <div class="exp-links">
+              <a href="assets/pdf/internship_himat.pdf" target="_blank" class="pdf-btn" download>📄 Download LOR PDF</a>
+            </div>
+          </div>
+        </div>
 
         <div class="timeline-item reveal">
           <div class="timeline-card">
@@ -2273,14 +2226,35 @@
           <div class="swiper-slide project-card" data-url="https://www.amazon.in/dp/B0GDTSFHCX/"
             style="cursor:pointer;">
             <div class="project-img">
+              <img src="assets/images/project image/asp.png" alt="ASP Book"
+                style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0; opacity:0.4; z-index:0;">
               <div class="project-img-bg"
-                style="background:linear-gradient(135deg,rgba(180,79,255,0.15),rgba(0,212,255,0.08))"></div>
-              <div class="project-num">13</div>
-              <div class="project-overlay"><button class="overlay-btn">VISIT LINK</button></div>
+                style="background:linear-gradient(135deg,rgba(180,79,255,0.25),rgba(0,212,255,0.25)); position:absolute; inset:0; z-index:1; mix-blend-mode:overlay;">
+              </div>
+              <div class="project-num" style="z-index:2; text-shadow:0 0 10px rgba(0,0,0,0.8);">13</div>
+              <div class="project-overlay" style="z-index:3;"><button class="overlay-btn">VISIT LINK</button></div>
             </div>
             <div class="project-info">
               <div class="project-tags"><span class="p-tag">Book</span></div>
               <div class="project-name">My Published Book</div>
+              <p class="project-desc">Technical book authored by Leo Joel.</p>
+            </div>
+          </div>
+
+          <div class="swiper-slide project-card" data-url="https://www.amazon.in/dp/B0CW1CHMKR"
+            style="cursor:pointer;">
+            <div class="project-img">
+              <img src="assets/images/project image/streamlit.png" alt="Streamlit Book"
+                style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0; opacity:0.4; z-index:0;">
+              <div class="project-img-bg"
+                style="background:linear-gradient(135deg,rgba(0,255,127,0.25),rgba(0,212,255,0.25)); position:absolute; inset:0; z-index:1; mix-blend-mode:overlay;">
+              </div>
+              <div class="project-num" style="z-index:2; text-shadow:0 0 10px rgba(0,0,0,0.8);">14</div>
+              <div class="project-overlay" style="z-index:3;"><button class="overlay-btn">VISIT LINK</button></div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags"><span class="p-tag">Book</span></div>
+              <div class="project-name">Streamlit Published Book</div>
               <p class="project-desc">Technical book authored by Leo Joel.</p>
             </div>
           </div>
@@ -2309,6 +2283,7 @@
       </div>
       <div class="swiper cert-swiper reveal">
         <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="assets/images/certificate/isro.png" alt="ISRO Certificate"></div>
           <div class="swiper-slide"><img src="assets/images/certificate/3d.jpg" alt="3D Certificate"></div>
           <div class="swiper-slide"><img src="assets/images/certificate/datascience.jpg" alt="Data Science Certificate">
           </div>
@@ -2317,7 +2292,6 @@
           </div>
           <div class="swiper-slide"><img src="assets/images/certificate/guvipython.png" alt="Guvi Python Certificate">
           </div>
-          <div class="swiper-slide"><img src="assets/images/certificate/isro.png" alt="ISRO Certificate"></div>
         </div>
       </div>
     </div>
@@ -2392,7 +2366,7 @@
     <div class="footer-social">
       <a
         href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile">in</a><a
-        href="https://x.com/LEOJOEL637">𝕏</a><a href="https://www.instagram.com/leo_joel_roys_637/">ig</a>
+        href="https://x.com/LEOJOEL637">𝕏</a><a href="https://github.com/Joelroys637" title="GitHub">gh</a>
     </div>
     <div class="footer-copy">© 2025 LEO JOEL ROYS — ALL RIGHTS RESERVED // JoelX Orbit</div>
   </footer>
@@ -2586,6 +2560,13 @@
         ham.classList.remove('open'); navLinks.classList.remove('open');
       });
     });
+
+    const closeMenuBtn = document.getElementById('close-menu');
+    if (closeMenuBtn) {
+      closeMenuBtn.addEventListener('click', () => {
+        ham.classList.remove('open'); navLinks.classList.remove('open');
+      });
+    }
 
     function updateActiveNav() {
       const sections = document.querySelectorAll('section[id]');
@@ -2781,6 +2762,21 @@
         keyboard: {
           enabled: true,
         },
+        on: {
+          click: function (swiper, event) {
+            const clickedSlide = swiper.clickedSlide;
+            if (clickedSlide) {
+              const img = clickedSlide.querySelector('img');
+              if (img) {
+                const modalOverlay = document.getElementById('modal-overlay');
+                const modalContent = document.getElementById('modal-content');
+                modalContent.innerHTML = `<img src="${img.src}" alt="${img.alt}" style="width: 100%; height: auto; max-height: 75vh; object-fit: contain; display: block; margin: 0 auto; border-radius: 4px;">`;
+                modalOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+              }
+            }
+          }
+        }
       });
     });
   </script>
