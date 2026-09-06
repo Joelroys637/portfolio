@@ -44,45 +44,10 @@
       background: var(--deep);
       color: var(--white);
       font-family: var(--font-body);
-      cursor: none;
       overflow-x: hidden;
     }
 
-    /* ── CUSTOM CURSOR ── */
-    #cursor {
-      position: fixed;
-      width: 12px;
-      height: 12px;
-      background: var(--neon-blue);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: transform .1s, width .2s, height .2s, background .2s;
-      box-shadow: var(--glow-blue);
-    }
 
-    #cursor-ring {
-      position: fixed;
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(0, 212, 255, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99998;
-      transform: translate(-50%, -50%);
-      transition: transform .15s ease, width .2s, height .2s, border-color .2s;
-    }
-
-    body:hover #cursor {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    a:hover~#cursor,
-    button:hover~#cursor {
-      width: 20px;
-      height: 20px;
-    }
 
     /* ── VIDEO INTRO SCREEN ── */
     #intro-screen {
@@ -351,7 +316,7 @@
       .hamburger {
         display: flex;
       }
-      
+
       .close-menu {
         display: block;
       }
@@ -412,9 +377,27 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      padding-left: 10%;
       overflow: hidden;
       z-index: 1;
+    }
+
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 75% center;
+      z-index: 0;
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .hero-video-bg {
+        object-position: 78% center;
+      }
     }
 
     .hero-bg {
@@ -423,7 +406,8 @@
       background:
         radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 212, 255, 0.12) 0%, transparent 70%),
         radial-gradient(ellipse 60% 40% at 80% 80%, rgba(180, 79, 255, 0.1) 0%, transparent 60%),
-        linear-gradient(180deg, #050508 0%, #030306 100%);
+        linear-gradient(180deg, rgba(5, 5, 8, 0.1) 0%, rgba(3, 3, 6, 0.85) 100%);
+      z-index: 1;
     }
 
     .hero-grid {
@@ -446,9 +430,23 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      text-align: center;
+      text-align: left;
       padding: 0 20px;
       max-width: 900px;
+    }
+
+    .video-subtitles {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 2vw, 1.3rem);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--neon-blue);
+      text-align: center;
+      margin-bottom: 24px;
+      display: inline-block;
+      animation: fade-up 1s 1.5s forwards;
+      opacity: 0;
+      filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
     }
 
     .hero-tag {
@@ -502,7 +500,7 @@
       color: rgba(255, 255, 255, 0.45);
       letter-spacing: 1px;
       max-width: 520px;
-      margin: 0 auto 48px;
+      margin: 0 0 48px;
       opacity: 0;
       animation: fade-up .8s 1.1s forwards;
     }
@@ -510,7 +508,7 @@
     .hero-btns {
       display: flex;
       gap: 20px;
-      justify-content: center;
+      justify-content: flex-start;
       flex-wrap: wrap;
       opacity: 0;
       animation: fade-up .8s 1.3s forwards;
@@ -579,7 +577,7 @@
     .social-float {
       display: flex;
       gap: 20px;
-      justify-content: center;
+      justify-content: flex-start;
       opacity: 0;
       animation: fade-up .8s 1.5s forwards;
     }
@@ -629,6 +627,59 @@
       width: 1px;
       height: 50px;
       background: linear-gradient(to bottom, var(--neon-blue), transparent);
+    }
+
+    @media (max-width: 768px) {
+      #hero {
+        align-items: stretch;
+        padding-top: 60px;
+        padding-bottom: 80px;
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      .hero-name {
+        margin-bottom: 24px;
+      }
+
+      .hero-btns {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 30px;
+      }
+
+      .hero-btns a {
+        flex: 1;
+        padding: 14px 10px;
+        font-size: 0.65rem;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .hero-role-wrap {
+        display: block !important;
+        order: -1;
+        margin-top: 40px;
+        margin-bottom: auto;
+        text-align: center;
+        font-size: 1.2rem;
+      }
+
+      .hero-tag,
+      .hero-sub,
+      .social-float,
+      .hero-btns a[href="#contact"] {
+        display: none !important;
+      }
     }
 
     @keyframes fade-up {
@@ -1684,18 +1735,9 @@
 
 <body>
 
-  <!-- Custom Cursor -->
-  <div id="cursor"></div>
-  <div id="cursor-ring"></div>
 
-  <!-- ══ INTRO VIDEO SCREEN ══ -->
-  <div id="intro-screen">
-    <video id="intro-video" playsinline autoplay>
-    </video>
 
-    <button id="skip-btn">SKIP INTRO ▶</button>
-    <div id="video-progress"></div>
-  </div>
+
 
   <!-- ══ LOADING SCREEN ══ -->
   <div id="loading-screen">
@@ -1730,10 +1772,16 @@
 
   <!-- ══ HERO ══ -->
   <section id="hero">
+    <video id="hero-main-video" playsinline class="hero-video-bg">
+      <source src="assets/header bg video.mp4" type="video/mp4">
+    </video>
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
     <div class="hero-content">
       <div class="hero-tag">// Full Stack Developer</div>
+      <div id="video-subtitles" class="video-subtitles">
+        "Hi, I'm Leo Joel Roys. Welcome to my portfolio!"
+      </div>
       <h1 class="hero-name">LEO JOEL ROYS</h1>
       <div class="hero-role-wrap">
         <span id="typed-text" class="typing-text"></span><span class="cursor-blink">|</span>
@@ -1784,8 +1832,8 @@
         </div>
         <div class="about-text reveal">
           <div class="section-tag">About Me</div>
-          <h2 class="section-title">Software<br>Developer</h2>
-          <p>I am a dedicated and versatile software developer with experience in creating web and desktop applications.
+          <h2 class="section-title">Web<br>Developer</h2>
+          <p>I am a dedicated and versatile Web developer with experience in creating innovative web applications.
             Proficient in Python, VB.NET, and SQL, with a strong background in building user friendly interfaces and
             efficient back-end systems.</p>
           <p>My job is to build your website so that it is functional and user-friendly but at the same time attractive.
@@ -1812,33 +1860,41 @@
         <h2 class="section-title">Technical Skills</h2>
       </div>
       <div class="skills-grid">
-        <div class="skill-card reveal" data-skill="85">
+        <div class="skill-card reveal" data-skill="65">
           <span class="skill-icon">👨‍💻</span>
-          <div class="skill-name">Web Development</div>
+          <div class="skill-name">Node.js</div>
           <div class="skill-bar-wrap">
             <div class="skill-bar"></div>
           </div>
-          <div class="skill-pct">85%</div>
+          <div class="skill-pct">65%</div>
         </div>
-        <div class="skill-card reveal" data-skill="70">
-          <span class="skill-icon">💻</span>
-          <div class="skill-name">VB.NET</div>
+        <div class="skill-card reveal" data-skill="80">
+          <span class="skill-icon">👨‍💻</span>
+          <div class="skill-name">Python</div>
           <div class="skill-bar-wrap">
             <div class="skill-bar"></div>
           </div>
-          <div class="skill-pct">70%</div>
+          <div class="skill-pct">80%</div>
         </div>
         <div class="skill-card reveal" data-skill="75">
-          <span class="skill-icon">🌐</span>
-          <div class="skill-name">ASP.NET</div>
+          <span class="skill-icon">👨‍💻</span>
+          <div class="skill-name">Firebase</div>
           <div class="skill-bar-wrap">
             <div class="skill-bar"></div>
           </div>
           <div class="skill-pct">75%</div>
         </div>
+        <div class="skill-card reveal" data-skill="70">
+          <span class="skill-icon">💻</span>
+          <div class="skill-name">.NET</div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar"></div>
+          </div>
+          <div class="skill-pct">70%</div>
+        </div>
         <div class="skill-card reveal" data-skill="40">
           <span class="skill-icon">📱</span>
-          <div class="skill-name">Android</div>
+          <div class="skill-name">Flutter</div>
           <div class="skill-bar-wrap">
             <div class="skill-bar"></div>
           </div>
@@ -1873,10 +1929,15 @@
             <div class="exp-title">Flutter Development Internship</div>
             <div class="exp-company">HiMat Technologies</div>
             <div class="exp-duration">May 1, 2026 – June 4, 2026</div>
-            <p class="exp-desc">During my internship at HiMat Technologies, I worked on the Trougle Travel Companion Mobile Application using Flutter, Firebase, Google Maps API, Razorpay, and real-time communication services. I contributed to UI development, authentication, trip management, maps, live location, chat, calling, payments, and subscriptions.</p>
+            <p class="exp-desc">During my internship at HiMat Technologies, I worked on the Trougle Travel Companion
+              Mobile Application using Flutter, Firebase, Google Maps API, Razorpay, and real-time communication
+              services. I contributed to UI development, authentication, trip management, maps, live location, chat,
+              calling, payments, and subscriptions.</p>
             <ul class="exp-list">
-              <li>Enhanced skills in Flutter, Firebase, API integration, UI/UX, testing, debugging, and application performance.</li>
-              <li>Improved problem-solving, teamwork, communication, and time-management skills through real-world mobile application development.</li>
+              <li>Enhanced skills in Flutter, Firebase, API integration, UI/UX, testing, debugging, and application
+                performance.</li>
+              <li>Improved problem-solving, teamwork, communication, and time-management skills through real-world
+                mobile application development.</li>
             </ul>
             <div class="exp-tech">Tech Stack: Flutter | Firebase | Google Maps API | Razorpay</div>
             <div class="exp-links">
@@ -2241,8 +2302,7 @@
             </div>
           </div>
 
-          <div class="swiper-slide project-card" data-url="https://www.amazon.in/dp/B0CW1CHMKR"
-            style="cursor:pointer;">
+          <div class="swiper-slide project-card" data-url="https://www.amazon.in/dp/B0CW1CHMKR" style="cursor:pointer;">
             <div class="project-img">
               <img src="assets/images/project image/streamlit.png" alt="Streamlit Book"
                 style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0; opacity:0.4; z-index:0;">
@@ -2386,46 +2446,50 @@
 
   <script>
     /* ═══════════════════════════════════════════════
-       INTRO VIDEO
+       HERO VIDEO AUDIO AUTOPLAY
     ═══════════════════════════════════════════════ */
-    const introScreen = document.getElementById('intro-screen');
-    const introVideo = document.getElementById('intro-video');
-    const skipBtn = document.getElementById('skip-btn');
-    const videoProg = document.getElementById('video-progress');
-    const loadScreen = document.getElementById('loading-screen');
-    const loaderPct = document.getElementById('loader-pct');
+    const heroVid = document.getElementById('hero-main-video');
+    if (heroVid) {
+      const playPromise = heroVid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(e => {
+          // Autoplay with sound blocked. Fallback to muted, add unmute button
+          heroVid.muted = true;
+          heroVid.play();
+          const unmuteBtn = document.createElement('button');
+          unmuteBtn.innerHTML = '🔊 UNMUTE';
+          unmuteBtn.style.cssText = 'padding:10px 20px; background:rgba(0,0,0,0.6); color:var(--neon-blue); border:1px solid var(--neon-blue); border-radius:4px; cursor:pointer; font-family:var(--font-display); font-weight:bold; letter-spacing:2px; font-size:0.9rem; backdrop-filter: blur(5px); margin-top: -10px; margin-bottom: 20px; z-index: 10003;';
 
-    // Set video source based on screen width
-    if (window.innerWidth <= 768) {
-      introVideo.innerHTML = '<source src="mobile_screen_intro_video.mp4" type="video/mp4">';
-    } else {
-      introVideo.innerHTML = '<source src="intro_video.mp4" type="video/mp4">';
-    }
-    introVideo.load();
+          const heroBtns = document.querySelector('.hero-btns');
+          if (heroBtns) {
+            heroBtns.parentNode.insertBefore(unmuteBtn, heroBtns.nextSibling);
+          } else {
+            document.getElementById('hero').appendChild(unmuteBtn);
+          }
 
-    // Attempt to play immediately
-    const playPromise = introVideo.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(e => {
-        console.warn("Autoplay with sound was blocked. Falling back to muted autoplay.");
-        introVideo.muted = true;
-        introVideo.play();
-
-        const unmuteBtn = document.createElement('button');
-        unmuteBtn.innerHTML = '🔊 UNMUTE';
-        unmuteBtn.style.cssText = 'position:absolute; top:20px; right:20px; z-index:10003; padding:10px 20px; background:rgba(0,0,0,0.5); color:var(--neon-blue); border:1px solid var(--neon-blue); border-radius:4px; cursor:pointer; font-family:var(--font-display); font-weight:bold; letter-spacing:2px;';
-        document.getElementById('intro-screen').appendChild(unmuteBtn);
-
-        unmuteBtn.addEventListener('click', () => {
-          introVideo.muted = false;
-          introVideo.currentTime = 0; // Restart video with sound
-          unmuteBtn.remove();
+          unmuteBtn.addEventListener('click', () => {
+            heroVid.muted = false;
+            heroVid.currentTime = 0;
+            unmuteBtn.remove();
+          });
         });
+      }
+
+      heroVid.addEventListener('ended', () => {
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+          aboutSection.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     }
 
+    /* ═══════════════════════════════════════════════
+       LOADER SCREEN
+    ═══════════════════════════════════════════════ */
+    const loadScreen = document.getElementById('loading-screen');
+    const loaderPct = document.getElementById('loader-pct');
+
     function showLoadingThenSite() {
-      introScreen.classList.add('hide');
       // loading bar
       let p = 0;
       const iv = setInterval(() => {
@@ -2435,19 +2499,8 @@
       }, 80);
     }
 
-    introVideo.addEventListener('timeupdate', () => {
-      if (introVideo.duration) {
-        videoProg.style.width = (introVideo.currentTime / introVideo.duration * 100) + '%';
-      }
-    });
-    introVideo.addEventListener('ended', showLoadingThenSite);
-    introVideo.addEventListener('error', showLoadingThenSite);
-    skipBtn.addEventListener('click', showLoadingThenSite);
-
-    // Fallback: if video doesn't exist, skip after 3s
-    setTimeout(() => {
-      if (introVideo.readyState === 0) showLoadingThenSite();
-    }, 3000);
+    // Immediately show loading then site
+    showLoadingThenSite();
 
     /* ═══════════════════════════════════════════════
        PARTICLES
@@ -2508,35 +2561,7 @@
 
     document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-    /* ═══════════════════════════════════════════════
-       CUSTOM CURSOR
-    ═══════════════════════════════════════════════ */
-    const cursor = document.getElementById('cursor');
-    const cursorRing = document.getElementById('cursor-ring');
-    let cx = 0, cy = 0, rx = 0, ry = 0;
 
-    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
-
-    function animateCursor() {
-      rx += (cx - rx) * .15; ry += (cy - ry) * .15;
-      cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
-      cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    document.querySelectorAll('a, button, .project-card, .service-card, .skill-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px'; cursor.style.height = '20px';
-        cursorRing.style.width = '60px'; cursorRing.style.height = '60px';
-        cursorRing.style.borderColor = 'rgba(0,212,255,0.8)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px'; cursor.style.height = '12px';
-        cursorRing.style.width = '36px'; cursorRing.style.height = '36px';
-        cursorRing.style.borderColor = 'rgba(0,212,255,0.5)';
-      });
-    });
 
     /* ═══════════════════════════════════════════════
        NAVBAR
@@ -2581,7 +2606,7 @@
     /* ═══════════════════════════════════════════════
        TYPING ANIMATION
     ═══════════════════════════════════════════════ */
-    const roles = ['Web Developer', 'Software Developer'];
+    const roles = ['Web Developer'];
     let ri = 0, ci = 0, deleting = false;
     const typed = document.getElementById('typed-text');
 
