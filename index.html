@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LEO JOEL ROYS | Portfolio</title>
   <meta name="description" content="Premium Developer Portfolio - Full Stack Developer, AI Solutions">
+  <link rel="icon" type="image/png" href="assets/images/icon1.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
@@ -2476,6 +2477,8 @@
       }
 
       heroVid.addEventListener('ended', () => {
+        heroVid.pause();
+        heroVid.currentTime = heroVid.duration; // keep it at the last frame
         const aboutSection = document.getElementById('about');
         if (aboutSection) {
           aboutSection.scrollIntoView({ behavior: 'smooth' });
