@@ -250,7 +250,7 @@
 
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: clamp(14px, 2vw, 36px);
       list-style: none;
     }
 
@@ -1570,8 +1570,10 @@
       min-height: 0;
     }
 
-    /* ── EXPERIENCE ── */
-    #experience {
+    /* ── EXPERIENCE, FREELANCE & PRODUCTS ── */
+    #experience,
+    #freelance,
+    #products {
       position: relative;
     }
 
@@ -1698,6 +1700,329 @@
       border: 1px solid var(--neon-purple) !important;
     }
 
+    /* ── SHOWCASE SECTION (FREELANCE & PRODUCTS) ── */
+    .showcase-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 42px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 40px rgba(0, 212, 255, 0.05);
+      transition: border-color .4s, box-shadow .4s, transform .4s;
+    }
+
+    .showcase-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-cyan));
+    }
+
+    .showcase-card:hover {
+      border-color: rgba(0, 212, 255, 0.4);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 50px rgba(0, 212, 255, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .showcase-grid.reverse {
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    /* Showcase Media / Browser Mockup */
+    .showcase-browser {
+      background: #080812;
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 212, 255, 0.1);
+      transition: all .4s ease;
+      position: relative;
+    }
+
+    .showcase-browser:hover {
+      border-color: var(--neon-blue);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 212, 255, 0.25);
+    }
+
+    .browser-topbar {
+      background: rgba(15, 15, 26, 0.95);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .browser-url {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .browser-url .lock-icon {
+      color: var(--neon-cyan);
+      font-size: 0.7rem;
+    }
+
+    .browser-action-btn {
+      color: var(--neon-blue);
+      font-size: 0.85rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: color .2s, transform .2s;
+    }
+
+    .browser-action-btn:hover {
+      color: #fff;
+      transform: translate(2px, -2px);
+    }
+
+    .browser-img-wrap {
+      position: relative;
+      overflow: hidden;
+      display: block;
+      background: #000;
+    }
+
+    .browser-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform .5s ease, filter .5s ease;
+    }
+
+    .showcase-browser:hover .browser-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .browser-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 65%, rgba(5, 5, 8, 0.75) 100%);
+      pointer-events: none;
+    }
+
+    /* Showcase Content Details */
+    .showcase-meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .client-logo-badge {
+      width: 68px;
+      height: 68px;
+      border-radius: 12px;
+      background: #030308;
+      border: 1px solid rgba(0, 212, 255, 0.35);
+      padding: 6px;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .client-logo-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .platform-icon-badge {
+      width: 68px;
+      height: 68px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(180, 79, 255, 0.15));
+      border: 1px solid rgba(180, 79, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 0 20px rgba(180, 79, 255, 0.25);
+      flex-shrink: 0;
+    }
+
+    .showcase-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      color: var(--neon-cyan);
+      margin-bottom: 14px;
+    }
+
+    .status-dot-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00ff88;
+      box-shadow: 0 0 8px #00ff88;
+      animation: status-pulse 2s infinite;
+    }
+
+    @keyframes status-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .showcase-heading {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .showcase-subheading {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--neon-blue);
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+
+    .showcase-intro {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 22px;
+    }
+
+    .showcase-features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 26px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .showcase-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.78);
+      padding: 10px 14px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background .2s, border-color .2s;
+    }
+
+    .showcase-feature-item:hover {
+      background: rgba(0, 212, 255, 0.04);
+      border-color: rgba(0, 212, 255, 0.18);
+    }
+
+    .feature-icon-bullet {
+      color: var(--neon-cyan);
+      font-size: 0.95rem;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    .showcase-pills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+
+    .showcase-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(0, 212, 255, 0.07);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      padding: 5px 12px;
+      border-radius: 4px;
+      transition: all .2s;
+    }
+
+    .showcase-pill:hover {
+      border-color: var(--neon-blue);
+      color: var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+    }
+
+    .showcase-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 968px) {
+      .showcase-grid,
+      .showcase-grid.reverse {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .showcase-card {
+        padding: 24px;
+      }
+      .showcase-heading {
+        font-size: 1.35rem;
+      }
+      .showcase-grid.reverse .showcase-media {
+        order: -1;
+      }
+    }
+
     /* ── CERTIFICATES ── */
     .cert-swiper {
       width: 100%;
@@ -1780,6 +2105,8 @@
       <li><a href="#skills">Skills</a></li>
 
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#freelance">Freelance</a></li>
+      <li><a href="#products">Products</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#certificates">Certificates</a></li>
@@ -2017,6 +2344,199 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ FREELANCE WORK ══ -->
+  <section id="freelance">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">Client Delivery</div>
+        <h2 class="section-title">Freelance Work</h2>
+      </div>
+
+      <div class="showcase-card reveal">
+        <div class="showcase-grid">
+          <!-- Details Left -->
+          <div class="showcase-info">
+            <div class="showcase-status">
+              <span class="status-dot-pulse"></span>
+              Live Client Project
+            </div>
+            
+            <div class="showcase-meta">
+              <div class="client-logo-badge">
+                <img src="assets/freelancelogo1.png" alt="Alangudi Aadukalam Turf Logo">
+              </div>
+              <div>
+                <h3 class="showcase-heading">Alangudi Aadukalam</h3>
+                <div class="showcase-subheading">Turf Booking Web Application // Freelance Full-Stack Developer</div>
+              </div>
+            </div>
+
+            <p class="showcase-intro">
+              Independently developed and delivered a complete turf booking web application as a freelance project. Successfully delivered the website to the client for live business operations.
+            </p>
+
+            <ul class="showcase-features-list">
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Real-Time Slot Booking:</strong> Implemented turf booking workflows, booking details management, and reservation scheduling.</div>
+              </li>
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Node.js &amp; Firebase Firestore:</strong> Built backend functionality using Node.js and integrated Firebase Firestore for real-time data storage and booking management.</div>
+              </li>
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Razorpay Payment Gateway:</strong> Integrated Razorpay to enable fast, reliable, and secure online booking payments.</div>
+              </li>
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Full Development Lifecycle:</strong> Managed the complete development lifecycle, from requirements gathering and implementation to testing, deployment, and final client handover.</div>
+              </li>
+            </ul>
+
+            <div class="showcase-pills-wrap">
+              <span class="showcase-pill">Node.js</span>
+              <span class="showcase-pill">Firebase Firestore</span>
+              <span class="showcase-pill">Razorpay Gateway</span>
+              <span class="showcase-pill">JavaScript</span>
+              <span class="showcase-pill">Booking Architecture</span>
+              <span class="showcase-pill">Full-Stack Web Dev</span>
+            </div>
+
+            <div class="showcase-actions">
+              <a href="https://www.alangudiaadukalam.in/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
+                <span>Visit Live Website</span> ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Browser Mockup Right -->
+          <div class="showcase-media">
+            <div class="showcase-browser">
+              <div class="browser-topbar">
+                <div class="browser-dots">
+                  <span class="browser-dot dot-red"></span>
+                  <span class="browser-dot dot-yellow"></span>
+                  <span class="browser-dot dot-green"></span>
+                </div>
+                <div class="browser-url">
+                  <span class="lock-icon">🔒</span>
+                  <span>https://www.alangudiaadukalam.in</span>
+                </div>
+                <a href="https://www.alangudiaadukalam.in/" target="_blank" rel="noopener noreferrer" class="browser-action-btn" title="Open Website">↗</a>
+              </div>
+              <a href="https://www.alangudiaadukalam.in/" target="_blank" rel="noopener noreferrer" class="browser-img-wrap">
+                <img src="assets/freelanceimg1.png" alt="Alangudi Aadukalam Turf Booking Website Preview">
+                <div class="browser-overlay"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ PRODUCT DEVELOPMENT ══ -->
+  <section id="products">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">SaaS &amp; Productivity</div>
+        <h2 class="section-title">Product Development</h2>
+      </div>
+
+      <div class="showcase-card reveal">
+        <div class="showcase-grid reverse">
+          <!-- Browser Mockup Left -->
+          <div class="showcase-media">
+            <div class="showcase-browser">
+              <div class="browser-topbar">
+                <div class="browser-dots">
+                  <span class="browser-dot dot-red"></span>
+                  <span class="browser-dot dot-yellow"></span>
+                  <span class="browser-dot dot-green"></span>
+                </div>
+                <div class="browser-url">
+                  <span class="lock-icon">🔒</span>
+                  <span>https://tools.joelxorbit.in</span>
+                </div>
+                <a href="https://tools.joelxorbit.in/" target="_blank" rel="noopener noreferrer" class="browser-action-btn" title="Launch Tools">↗</a>
+              </div>
+              <a href="https://tools.joelxorbit.in/" target="_blank" rel="noopener noreferrer" class="browser-img-wrap">
+                <img src="assets/productimg1.png" alt="JoelX Orbit Tools Platform Preview">
+                <div class="browser-overlay"></div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Details Right -->
+          <div class="showcase-info">
+            <div class="showcase-status" style="border-color: rgba(180, 79, 255, 0.4); color: var(--neon-purple); background: rgba(180, 79, 255, 0.08);">
+              <span class="status-dot-pulse" style="background: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple);"></span>
+              Live Online Tools Platform
+            </div>
+
+            <div class="showcase-meta">
+              <div class="platform-icon-badge">⚡</div>
+              <div>
+                <h3 class="showcase-heading">JoelX Orbit Tools</h3>
+                <div class="showcase-subheading">Free Online Productivity Tools // Product Developer &amp; Founder</div>
+              </div>
+            </div>
+
+            <p class="showcase-intro">
+              Conceptualized, developed, and launched an independent web-based productivity tools platform under the JoelX Orbit brand, delivering privacy-first, client-side utility engines.
+            </p>
+
+            <ul class="showcase-features-list">
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Bulk Certificate Generator:</strong> Developed bulk certificate generation functionality with Excel (.xlsx) integration, customizable templates, live previews, and ZIP export.</div>
+              </li>
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Custom QR Code Studio:</strong> Implemented a customizable QR code generation system supporting embedded logos, custom colors, and PNG, SVG, and JPEG exports.</div>
+              </li>
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Client-Side Privacy:</strong> Focused on client-side processing and user privacy to minimize unnecessary storage of uploaded files.</div>
+              </li>
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Integrated Utility Suite:</strong> Built multiple online utilities, including Image Converter, Video Converter, and document tools into a responsive, user-friendly platform.</div>
+              </li>
+              <li class="showcase-feature-item">
+                <span class="feature-icon-bullet">▹</span>
+                <div><strong>Full Product Lifecycle:</strong> Managed the complete product lifecycle, including idea conceptualization, development, testing, deployment, and ongoing improvements.</div>
+              </li>
+            </ul>
+
+            <div class="showcase-pills-wrap">
+              <span class="showcase-pill">Product Development</span>
+              <span class="showcase-pill">Full-Stack Web Dev</span>
+              <span class="showcase-pill">JavaScript</span>
+              <span class="showcase-pill">Excel Integration</span>
+              <span class="showcase-pill">File Processing</span>
+              <span class="showcase-pill">QR Code Generation</span>
+              <span class="showcase-pill">API Integration</span>
+              <span class="showcase-pill">Client-Side Privacy</span>
+              <span class="showcase-pill">Entrepreneurship</span>
+            </div>
+
+            <div class="showcase-actions">
+              <a href="https://tools.joelxorbit.in/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
+                <span>Launch JoelX Orbit Tools</span> ↗
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
